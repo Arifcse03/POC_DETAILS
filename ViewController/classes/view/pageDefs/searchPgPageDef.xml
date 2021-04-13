@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.62.29" id="searchPgPageDef"
+                Package="view.pageDefs">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="pocSearchVo1" RangeSize="25"
+              DataControl="AppModuleDataControl" id="pocSearchVo1Iterator"/>
+    <iterator Binds="POCHeaderView1" RangeSize="25"
+              DataControl="AppModuleDataControl" id="POCHeaderView1Iterator"/>
+    <searchRegion Binds="POCHeaderView1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="POCHeaderView1Query"/>
+  </executables>
+  <bindings>
+    <attributeValues IterBinding="pocSearchVo1Iterator" id="PocId">
+      <AttrNames>
+        <Item Value="PocId"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="POCHeaderView1Iterator" id="POCHeaderView1">
+      <nodeDefinition DefName="model.VO.POCHeaderView" Name="POCHeaderView10">
+        <AttrNames>
+          <Item Value="PocId"/>
+          <Item Value="LcUnit"/>
+          <Item Value="BuyerId"/>
+          <Item Value="Season"/>
+          <Item Value="Style"/>
+          <Item Value="StyleDescription"/>
+          <Item Value="Brand"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+  <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+  <f:view>
+    <af:document id="d1">
+      <af:messages id="m1"/>
+      <af:form id="f1">
+        <af:panelHeader text=" " id="ph1" inlineStyle="background-color:Menu;">
+          <f:facet name="context"/>
+          <f:facet name="menuBar"/>
+          <f:facet name="toolbar"/>
+          <f:facet name="legend">
+            <af:outputText value="POC DETAILS" id="ot1"
+                           inlineStyle="color:Black; font-family:'Courier New', Courier, monospace; font-size:medium; font-weight:bolder;"/>
+          </f:facet>
+          <f:facet name="info"/>
+        </af:panelHeader>
+        <af:panelFormLayout id="pfl1" maxColumns="2" rows="1"
+                            inlineStyle="border-color:Black; border-style:groove; background-color:ActiveBorder;">
+          <af:inputText value="#{bindings.PocId.inputValue}"
+                        label="POC ID:"
+                        required="#{bindings.PocId.hints.mandatory}"
+                        columns="#{bindings.PocId.hints.displayWidth}"
+                        maximumLength="#{bindings.PocId.hints.precision}"
+                        shortDesc="#{bindings.PocId.hints.tooltip}" id="it1"
+                        autoSubmit="true">
+            <f:validator binding="#{bindings.PocId.validator}"/>
+          </af:inputText>
+          <af:commandButton text="Search" id="cb1"
+                            inlineStyle="color:Black; font-family:'Courier New', Courier, monospace; font-size:x-small; border-color:Black; border-width:thin;"
+                            actionListener="#{backbean.action_call}"/>
+        </af:panelFormLayout>
+        <af:panelCollection id="pc1"
+                            inlineStyle="width:auto; height:500px; border-color:Black; border-style:dotted; border-width:thin;">
+          <f:facet name="menus"/>
+          <f:facet name="toolbar"/>
+          <f:facet name="statusbar"/>
+          <af:table value="#{bindings.POCHeaderView1.collectionModel}" var="row"
+                    rows="#{bindings.POCHeaderView1.rangeSize}"
+                    emptyText="#{bindings.POCHeaderView1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                    fetchSize="#{bindings.POCHeaderView1.rangeSize}"
+                    rowBandingInterval="0"
+                    filterModel="#{bindings.POCHeaderView1Query.queryDescriptor}"
+                    queryListener="#{bindings.POCHeaderView1Query.processQuery}"
+                    filterVisible="true" varStatus="vs"
+                    selectedRowKeys="#{bindings.POCHeaderView1.collectionModel.selectedRow}"
+                    selectionListener="#{bindings.POCHeaderView1.collectionModel.makeCurrent}"
+                    rowSelection="single" id="t1" binding="#{backbean.pocTable}"
+                    inlineStyle="color:Black;" editingMode="clickToEdit">
+            <af:column sortProperty="PocId" filterable="true" sortable="true"
+                       headerText="POC ID" id="c1" align="center" width="50">
+              <af:outputText value="#{row.PocId}" id="ot5">
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.POCHeaderView1.hints.PocId.format}"/>
+              </af:outputText>
+            </af:column>
+            <af:column sortProperty="LcUnit" filterable="true" sortable="true"
+                       headerText="UNIT" id="c3" align="center" width="50">
+              <af:outputText value="#{row.LcUnit}" id="ot2">
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.POCHeaderView1.hints.LcUnit.format}"/>
+              </af:outputText>
+            </af:column>
+            <af:column sortProperty="BuyerId" filterable="true" sortable="true"
+                       headerText="#{bindings.POCHeaderView1.hints.BuyerId.label}"
+                       id="c2" visible="false">
+              <af:outputText value="#{row.BuyerId}" id="ot3">
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.POCHeaderView1.hints.BuyerId.format}"/>
+              </af:outputText>
+            </af:column>
+            <af:column sortProperty="Season" filterable="true" sortable="true"
+                       headerText="SEASON" id="c5" align="center">
+              <af:outputText value="#{row.Season}" id="ot6"/>
+            </af:column>
+            <af:column sortProperty="Style" filterable="true" sortable="true"
+                       headerText="STYLE" id="c4" align="center" width="150">
+              <af:outputText value="#{row.Style}" id="ot8"/>
+            </af:column>
+            <af:column sortProperty="StyleDescription" filterable="true"
+                       sortable="true" headerText="Style Description" id="c6"
+                       align="center" width="150">
+              <af:outputText value="#{row.StyleDescription}" id="ot4"/>
+            </af:column>
+            <af:column sortProperty="Brand" filterable="true" sortable="true"
+                       headerText="Brand" id="c7" align="center">
+              <af:outputText value="#{row.Brand}" id="ot7"/>
+            </af:column>
+          </af:table>
+        </af:panelCollection>
+      </af:form>
+    </af:document>
+  </f:view>
+</jsp:root>
